@@ -1,0 +1,67 @@
+component Button inherits Rectangle {
+    callback clicked();
+    in property <string> text;
+
+    // ボタン見た目
+    min-width: 80px;
+    min-height: 30px;
+    border-radius: 6px;
+    background: ta.pressed ? #a0a0a0: ta.has-hover ? #c0c0c0 : #e0e0e0;
+
+
+    Text {
+        text: root.text;
+        vertical-alignment: center;
+        horizontal-alignment: center;
+    }
+    
+    ta := TouchArea {
+        clicked => {
+            root.clicked();
+        }
+    }
+}
+
+export component UI inherits Window {
+    
+    // window サイズ
+    width: 200px;
+    height: 100px;
+
+    // タイマー初期値
+    property <int> value: 0;
+
+    // タイマー設定
+    timer := Timer {
+        interval: 1s;
+        running: true;
+        triggered() => {
+            value += 1;
+        }
+    }
+
+
+    VerticalLayout {
+        spacing: 16px;
+        alignment: center;
+
+        // 現在のカウント表示
+        Text {
+            text: value;
+            vertical-alignment: center;
+        horizontal-alignment: center;
+            font-size: 24px;
+        }
+
+        // 開始 / 停止ボタン
+        Button {
+            Text {
+                text: timer.running ? "stop" : "start";
+                font-size: 32px;
+            }
+            clicked => {
+                timer.running = !timer.running;
+            }
+        }
+    }
+}
