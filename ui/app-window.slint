@@ -26,7 +26,7 @@ export component UI inherits Window {
     
     // window サイズ
     width: 200px;
-    height: 100px;
+    height: 150px;
 
     // タイマー初期値
     property <int> value: 0;
@@ -49,7 +49,7 @@ export component UI inherits Window {
         Text {
             text: value;
             vertical-alignment: center;
-        horizontal-alignment: center;
+            horizontal-alignment: center;
             font-size: 24px;
         }
 
@@ -61,6 +61,15 @@ export component UI inherits Window {
             }
             clicked => {
                 timer.running = !timer.running;
+            }
+        }
+        Button {
+            Text {
+                text: "reset";
+                font-size: 32px;
+            }
+            clicked => {
+                value = 0;
             }
         }
     }
